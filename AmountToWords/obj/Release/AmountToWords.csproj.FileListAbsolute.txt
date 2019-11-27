@@ -1,0 +1,6 @@
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\bin\Release\AmountToWords.exe.config
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\bin\Release\AmountToWords.exe
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\bin\Release\AmountToWords.pdb
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\obj\Release\AmountToWords.csprojAssemblyReference.cache
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\obj\Release\AmountToWords.exe
+C:\Users\箫龙\Source\Repos\AmountToWords\AmountToWords\obj\Release\AmountToWords.pdb

@@ -24,6 +24,7 @@ You may wrap the code in a web app or command line tool - whatever you prefer.
 ###
 
 ## How to run
-Download the "AmountToWords.exe" from "AmountToWords/bin/Release" to your computer, than double click to open it.  
+Download the "[AmountToWords.exe](https://github.com/chenhua1008/AmountToWords/tree/master/AmountToWords/bin/Release)" from "AmountToWords/bin/Release" to your computer, than double click to open it.  
 Support: windows, with .net framework 4.0 or higher  
+![](https://github.com/chenhua1008/AmountToWords/blob/master/AmountToWordsConsole.png)
 

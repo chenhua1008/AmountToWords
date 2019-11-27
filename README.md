@@ -1,12 +1,12 @@
 # AmountToWords
 C# solution,with NUnit TestCases, convert any amount in range [0,2147483647.99] to its English currency representation in words.
 
-## The Path of the source code and release application
-Solution 'AmountToWords'
-          |----------Project 'AmountToWords'
-                            |---------source 'AmountToWords.cs'
-                            |---------source 'Program.cs'
-                            |---------run 'bin/Release/AmountToWords.exe'
-          |----------Project 'AmountToWordsTests'
-                            |---------source 'AmountToWordsTests.cs'
+## The Path of the source code and released application
+Solution 'AmountToWords'<br>
+>>>|-------- Project 'AmountToWords'<br> 
+>>>>>>|---------source 'AmountToWords.cs'<br> 
+>>>>>>|---------source 'Program.cs'<br> 
+>>>>>>|---------application 'bin/Release/AmountToWords.exe'<br> 
+>>>|----------Project 'AmountToWordsTests'<br> 
+>>>>>>|---------source 'AmountToWordsTests.cs'<br> 
 ###

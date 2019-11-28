@@ -17,9 +17,6 @@ namespace AmountToWords
                     Console.WriteLine("Please input amount followed by ENTER, exit by Ctrl+C:");
                     string str = Console.ReadLine();
                     Console.WriteLine(_amountToWords.ConvertAmountToWords(str));
-                    //double intParsed;
-                    //double.TryParse(str, NumberStyles.AllowCurrencySymbol|NumberStyles.AllowDecimalPoint|NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out intParsed);
-                    //Console.WriteLine(str.Replace(',','\0'));
                 }
                 catch (Exception e)
                 {

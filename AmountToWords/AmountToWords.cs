@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using AmountProcess.Constants;
 
 /// <summary>
 /// Write a piece of code in C# to convert any amount to its English currency representation in words. 
@@ -14,24 +15,6 @@ namespace AmountProcess
 {
     public class AmountToWords
     {
-        private static readonly string[] BelowTen = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
-        private static readonly string[] BelowTwenty = { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
-        private static readonly string[] BelowHundred = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
-
-        /// <summary>
-        /// Print help information
-        /// </summary>
-        public string ShowUsage()
-        {
-            string strMsg;
-            strMsg =   "***********************************************************************\n" 
-                     + "This application is used to convert any amount to its English currency representation in words.\n"
-                     + "Please input an amount, up to 2 decimal digit, like '123', '1234.5', '12345.67', and then press ENTER.\n"
-                     + "Min:0   Max:2147483647.99\n"
-                     + "***********************************************************************\n";
-            return strMsg;
-        }
-
         /// <summary>
         /// Logic to convert amount to words
         /// 1. validate input
@@ -43,15 +26,18 @@ namespace AmountProcess
         /// return the converted result
         public string ConvertAmountToWords(string strNum)
         {
-            if (strNum == null)
+            if (string.IsNullOrEmpty(strNum))
             {
-                throw new ArgumentException("Input is null");
+                throw new ArgumentException(UtilConst.IllegalMsgEmpty);
             }
             // validate the legal input
             if (!ValidateFormat(strNum))
             {
-                throw new ArgumentException("Illegal input, please input amount like '123', '123.0', '123.00'");
+                throw new ArgumentException(UtilConst.IllegalMsgCommon);
             }
+
+            // remove comma symbol from string
+            strNum = strNum.Replace(",", string.Empty);
 
             int integerPart;
             int decimalPart;
@@ -71,7 +57,7 @@ namespace AmountProcess
                     integerPart = int.Parse(strNum.Substring(0, pos));
 
                     string strDecimalPart = strNum.Substring(pos + 1);
-                    if (strDecimalPart.Equals("00"))
+                    if (strDecimalPart == "00")
                     {
                         strDecimalPart = "0";
                     }
@@ -84,7 +70,11 @@ namespace AmountProcess
             }
             catch (OverflowException)
             {
-                throw new ArgumentException("Illegal input, amount must between 0 and 2147483647.99");
+                throw new ArgumentException(UtilConst.IllegalMsgOutOfRange);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException(UtilConst.IllegalMsgCommon);
             }
 
             // convert integer part to English words
@@ -114,8 +104,8 @@ namespace AmountProcess
         /// return the validate result, true or false
         private bool ValidateFormat(string input)
         {
-            Regex reg = new Regex("^[0-9]+([.][0-9]{1,2})?$");
-            if (input == null)
+            Regex reg = new Regex("^[0-9,]+([.][0-9]{1,2})?$");
+            if (string.IsNullOrEmpty(input))
             {
                 return false;
             }
@@ -137,9 +127,9 @@ namespace AmountProcess
         {
             string result;
             if (num == 0) result = "";
-            else if (num < 10) result = BelowTen[num];
-            else if (num < 20) result = BelowTwenty[num - 10];
-            else if (num < 100) result = BelowHundred[num / 10] + " " + ConvertIntegerPartToWords(num % 10);
+            else if (num < 10) result = UtilConst.BelowTen[num];
+            else if (num < 20) result = UtilConst.BelowTwenty[num - 10];
+            else if (num < 100) result = UtilConst.BelowHundred[num / 10] + " " + ConvertIntegerPartToWords(num % 10);
             else if (num < 1000) result = ConvertIntegerPartToWords(num / 100) + " Hundred " + ConvertIntegerPartToWords(num % 100);
             else if (num < 1000000) result = ConvertIntegerPartToWords(num / 1000) + " Thousand " + ConvertIntegerPartToWords(num % 1000);
             else if (num < 1000000000) result = ConvertIntegerPartToWords(num / 1000000) + " Million " + ConvertIntegerPartToWords(num % 1000000);
@@ -158,10 +148,10 @@ namespace AmountProcess
         {
             string result;
             if (num == 0) result = "";
-            else if (num < 10) result = BelowTen[num];
-            else if (num < 20) result = BelowTwenty[num - 10];
-            else if (num < 100) result = BelowHundred[num / 10] + " " + ConvertDecimalPartToWords(num % 10);
-            else throw new ArgumentException("Illegal decimal");
+            else if (num < 10) result = UtilConst.BelowTen[num];
+            else if (num < 20) result = UtilConst.BelowTwenty[num - 10];
+            else if (num < 100) result = UtilConst.BelowHundred[num / 10] + " " + ConvertDecimalPartToWords(num % 10);
+            else throw new ArgumentException(UtilConst.IllegalMsgDecimal);
 
             return result.Trim();
         }
@@ -174,9 +164,9 @@ namespace AmountProcess
         /// return the combined result string
         private string TidyAndCombineWords(string strIntegerWords, string strDecimalWords)
         {
-            if (strIntegerWords == null || strDecimalWords == null)
+            if (string.IsNullOrEmpty(strIntegerWords) || string.IsNullOrEmpty(strDecimalWords) )
             {
-                throw new ArgumentException("Input is null");
+                throw new ArgumentException(UtilConst.IllegalMsgEmpty);
             }
 
             string result;

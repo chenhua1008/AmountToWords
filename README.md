@@ -39,3 +39,20 @@ nunit.framework 3.11.0.0
 Download the "[AmountToWords.exe](https://github.com/chenhua1008/AmountToWords/tree/master/AmountToWords/bin/Release)" from "AmountToWords/bin/Release" to your computer, than double click to open it.
 Support: windows, with .net framework 4.0 or higher
 ![](https://github.com/chenhua1008/AmountToWords/blob/master/AmountToWordsConsole.png)  
+
+### UnitTest & Coverage
+![](https://github.com/chenhua1008/AmountToWords/blob/master/UnitTestResult.png)
+
+
+![](https://github.com/chenhua1008/AmountToWords/blob/master/UnitTestCoverage.png)
+
+**Why the coverage is not 100%?**  
+The 3 lines of codes are in the private function which are like:
+```
+if (strInput == null)
+{
+  ...
+}
+```
+But I validate the strInput before I call the function. So no these cases.
+Of course, maybe we can test the private function directly by NUnit. But I am learning it, I hope I can do it later.  

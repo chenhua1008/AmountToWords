@@ -2,7 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using AmountProcess;
+using AmountProcess.Constants;
+using AmountToWords = AmountProcess.AmountToWords;
 
 namespace AmountToWordsTests
 {
@@ -10,8 +13,6 @@ namespace AmountToWordsTests
     public class AmountToWordsTests
     {
         private AmountProcess.AmountToWords _amountToWords;
-
-        private static readonly string IllegalInput_Msg = "Illegal Input"; 
 
         [SetUp]
         public void InitializeTests()
@@ -67,6 +68,10 @@ namespace AmountToWordsTests
             yield return new TestCaseData("102", "One Hundred Two Dollars");
             yield return new TestCaseData("120", "One Hundred Twenty Dollars");
             yield return new TestCaseData("0123456", "One Hundred Twenty Three Thousand Four Hundred Fifty Six Dollars");
+            yield return new TestCaseData("123,456", "One Hundred Twenty Three Thousand Four Hundred Fifty Six Dollars");
+            yield return new TestCaseData("123,456.00", "One Hundred Twenty Three Thousand Four Hundred Fifty Six Dollars");
+            yield return new TestCaseData("01234,56", "One Hundred Twenty Three Thousand Four Hundred Fifty Six Dollars");
+            yield return new TestCaseData(",123,456", "One Hundred Twenty Three Thousand Four Hundred Fifty Six Dollars");
 
         }
 
@@ -82,29 +87,33 @@ namespace AmountToWordsTests
         private static IEnumerable<TestCaseData> InputIllegalCases()
         {
             // Case: null
-            yield return new TestCaseData(null, "Input is null");
+            yield return new TestCaseData(null, UtilConst.IllegalMsgEmpty);
 
             // Cases: numbers, but out of range [0,2147483647.99]  
-            yield return new TestCaseData("-1", IllegalInput_Msg);
-            yield return new TestCaseData("-1.00", IllegalInput_Msg);
-            yield return new TestCaseData("-0.01", IllegalInput_Msg);
-            yield return new TestCaseData("2147483647.991", IllegalInput_Msg);
-            yield return new TestCaseData("2147483648", "Illegal input, amount must between 0 and 2147483647.99");
-            yield return new TestCaseData("3147483647", "Illegal input, amount must between 0 and 2147483647.99");
+            yield return new TestCaseData("-1", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("-1.00", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("-0.01", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("2147483647.991", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("2147483648", UtilConst.IllegalMsgOutOfRange);
+            yield return new TestCaseData("3147483647", UtilConst.IllegalMsgOutOfRange);
 
             // Cases: other illegal
-            yield return new TestCaseData("-0", IllegalInput_Msg);
-            yield return new TestCaseData("a", IllegalInput_Msg);
-            yield return new TestCaseData("a.0", IllegalInput_Msg);
-            yield return new TestCaseData("0b", IllegalInput_Msg);
-            yield return new TestCaseData("0.c", IllegalInput_Msg);
-            yield return new TestCaseData("0.000", IllegalInput_Msg);
-            yield return new TestCaseData("1.", IllegalInput_Msg);
-            yield return new TestCaseData("1.000", IllegalInput_Msg);
-            yield return new TestCaseData("0.", IllegalInput_Msg);
-            yield return new TestCaseData("10.", IllegalInput_Msg);
-            yield return new TestCaseData("10.000", IllegalInput_Msg);
-            yield return new TestCaseData("2147483647.990", IllegalInput_Msg);
+            yield return new TestCaseData(" ", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData(".", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData(",", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("-0", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("a", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("a.0", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("0b", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("0.c", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("0.000", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("1.", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("1.000", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("1.0,", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("0.", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("10.", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("10.000", UtilConst.IllegalMsgCommon);
+            yield return new TestCaseData("2147483647.990", UtilConst.IllegalMsgCommon);
         }
 
         /// <summary>
@@ -117,16 +126,5 @@ namespace AmountToWordsTests
             Assert.Throws<ArgumentException>(() => _amountToWords.ConvertAmountToWords(inputAmount), expectedMsg);
         }
 
-        /// <summary>
-        /// Test function ShowUsage()
-        /// Not throw Exception  
-        /// </summary>
-        [Test]
-        //[Ignore("Test later")]
-        public void TestShowUsage()
-        {
-            Assert.DoesNotThrow(() => _amountToWords.ShowUsage());
-            Assert.That(_amountToWords.ShowUsage(), Is.TypeOf(typeof(string)));
-        }
     }
 }

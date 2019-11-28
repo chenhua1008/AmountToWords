@@ -9,6 +9,16 @@ Include all your code (with unit tests) and any supporting references that are n
 Also include instructions for how to run/use your application, including any limitations or assumptions.  
 You may wrap the code in a web app or command line tool - whatever you prefer.  
 
+### Limitations
+We must discuss with our clients and clarify the detail of the requirements before development.  
+But to simplify the problem, I assume some limitations of this problem.(It is not good. ^_^)
+
+* min amout: 0  
+* max amout: 2147483647.99 (integer part is the maximum of Int, and decimal part is the maximum of 2 digits)  
+* up to 2 decimal 
+* can support like '123', '123.4', '123.45', even '0123.45'
+* can not support non-numeric, include comma symbol, like '123,45'
+
 ### Solution structure
 Solution 'AmountToWords'
 
@@ -20,6 +30,10 @@ Solution 'AmountToWords'
 
 >>>|----------Project 'AmountToWordsTests'  
 >>>>>>|---------source 'AmountToWordsTests.cs'
+
+### References & Build
+.NET Framework 4.5.1  
+nunit.framework 3.11.0.0  
 
 ### How to run
 Download the "[AmountToWords.exe](https://github.com/chenhua1008/AmountToWords/tree/master/AmountToWords/bin/Release)" from "AmountToWords/bin/Release" to your computer, than double click to open it.

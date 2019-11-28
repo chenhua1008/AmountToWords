@@ -1,7 +1,7 @@
 # AmountToWords
 C# solution,with NUnit TestCases, convert any amount in range [0,2147483647.99] to its English currency representation in words.
 
-### A Test
+### Requirement
 Write a piece of code in C# to convert any amount to its English currency representation in words.  
 Example: Input - 1.15  
 Output - "One Dollar and Fifteen Cents"  
@@ -9,15 +9,14 @@ Include all your code (with unit tests) and any supporting references that are n
 Also include instructions for how to run/use your application, including any limitations or assumptions.  
 You may wrap the code in a web app or command line tool - whatever you prefer.  
 
-### Limitations
-We must discuss with our clients and clarify the detail of the requirements before development.  
-But to simplify the problem, I assume some limitations of this problem.(It is not good. ^_^)
+### Assumption
+I assume some limitations of this problem. (We always must discuss with our clients and clarify the detail of the requirements before development.)
 
 * min amout: 0  
 * max amout: 2147483647.99 (integer part is the maximum of Int, and decimal part is the maximum of 2 digits)  
 * up to 2 decimal 
 * can support like '123', '123.4', '123.45', even '0123.45'
-* can not support non-numeric, include comma symbol, like '123,45'
+* can not support non-numeric input, e.g 'one dollor','$3','123,45'
 
 ### Solution structure
 Solution 'AmountToWords'
@@ -45,14 +44,3 @@ Support: windows, with .net framework 4.0 or higher
 
 
 ![](https://github.com/chenhua1008/AmountToWords/blob/master/UnitTestCoverage.png)
-
-**Why the coverage is not 100%?**  
-The 3 lines of codes are in the private function which are like:
-```
-if (strInput == null)
-{
-  ...
-}
-```
-But I validate the strInput before I call the function. So no these cases.
-Of course, maybe we can test the private function directly by NUnit. But I am learning it, I hope I can do it later.  

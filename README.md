@@ -1,22 +1,27 @@
 # AmountToWords
-C# solution,with NUnit TestCases, convert any amount in range [0,2147483647.99] to its English currency representation in words.
 
-### Requirement
-Write a piece of code in C# to convert any amount to its English currency representation in words.  
-Example: Input - 1.15  
-Output - "One Dollar and Fifteen Cents"  
-Include all your code (with unit tests) and any supporting references that are needed to compile and run the solution.  
-Also include instructions for how to run/use your application, including any limitations or assumptions.  
-You may wrap the code in a web app or command line tool - whatever you prefer.  
+### About this
+This is a C# application to convert any amount to its English currency representation in words.  
+Example:   
+>Input - 1.15  
+>Output - "One Dollar and Fifteen Cents"  
+
+### Prerequisites
+Windows OS with .Net framework 4.0 or higher 
+
+### How to run
+1. Download the "[AmountToWords.exe](https://github.com/chenhua1008/AmountToWords/tree/master/AmountToWords/bin/Release)" from "AmountToWords/bin/Release" to your computer.  
+2. Double click "AmountToWords.exe" to open it.  
+3. Input the amount you want to convert.  
+
+![](https://github.com/chenhua1008/AmountToWords/blob/master/AmountToWordsConsole.png) 
 
 ### Assumption
-I assume some limitations of this problem. (We always must discuss with our clients and clarify the detail of the requirements before development.)
+* Input data range: 0 to 2147483647.99(integer part is the maximum of Int, and decimal part is the maximum of 2 digits). 
+* Supported input data format: Any digital numbers with or without decimal part, e.g. '123', '123.4', '123.45', '0123.45' etc.  
+* Can not support non-numeric input, e.g 'one dollar', '$3', '123,45' etc.    
+(Above assumptions and limitations are based on my understanding and common sense. They should depend on actual business requirements in real work environment.)
 
-* min amout: 0  
-* max amout: 2147483647.99 (integer part is the maximum of Int, and decimal part is the maximum of 2 digits)  
-* up to 2 decimal 
-* can support like '123', '123.4', '123.45', even '0123.45'
-* can not support non-numeric input, e.g 'one dollor','$3','123,45'
 
 ### Solution structure
 Solution 'AmountToWords'
@@ -32,12 +37,7 @@ Solution 'AmountToWords'
 
 ### References & Build
 .NET Framework 4.5.1  
-nunit.framework 3.11.0.0  
-
-### How to run
-Download the "[AmountToWords.exe](https://github.com/chenhua1008/AmountToWords/tree/master/AmountToWords/bin/Release)" from "AmountToWords/bin/Release" to your computer, than double click to open it.
-Support: windows, with .net framework 4.0 or higher
-![](https://github.com/chenhua1008/AmountToWords/blob/master/AmountToWordsConsole.png)  
+nunit.framework 3.11.0.0   
 
 ### UnitTest & Coverage
 ![](https://github.com/chenhua1008/AmountToWords/blob/master/UnitTestResult.png)
